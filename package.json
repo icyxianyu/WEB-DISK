@@ -1,0 +1,17 @@
+{
+    "name": "webdisk",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+      "frontend",
+      "server"
+    ],
+    "scripts": {
+      "f:dev": "pnpm -C frontend dev",
+      "f:build": "pnpm -C frontend build",
+      "s:dev": "pnpm -C server start:dev",
+      "s:build": "pnpm -C server build",
+      "install": "pnpm recursive install"
+    }
+  }
+  
