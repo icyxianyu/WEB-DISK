@@ -1,4 +1,6 @@
-import { createGlobalStyle, ThemeProvider } from "styled-components"
+import { createGlobalStyle } from "styled-components"
+import Layout from '@/components/layout/layout';
+import { ConfigProvider } from "antd";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -8,19 +10,26 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-const theme = {
-    colors: {
-        primary: '#0070f3',
-    },
-}
+
 
 function MyApp({ Component, pageProps }: any) {
     return (
         <>
             <GlobalStyle />
-            <ThemeProvider theme={theme}>
-                <Component {...pageProps} />
-            </ThemeProvider>
+            <Layout>
+                <ConfigProvider
+                    theme={{
+                        components: {
+                            Layout: {
+                                headerBg: '#fff',
+                                siderBg: '#fff',
+                            },
+                        },
+                    }}
+                >
+                    <Component {...pageProps} />
+                </ConfigProvider>
+            </Layout>
         </>
     )
 }

@@ -1,5 +1,6 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-
+import { Button, Form, Input } from 'antd';
+import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { USER_COUNT, USER_PASSWORD } from '@/constant/text';
 const onFinish = (values: any) => {
     console.log('Success:', values);
 };
@@ -17,41 +18,30 @@ type FieldType = {
 const App: React.FC = () => (
     <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
         <Form.Item<FieldType>
-            label="Username"
             name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[{ required: true, message: USER_COUNT }]}
         >
-            <Input />
+            <Input prefix={<UserOutlined />} />
         </Form.Item>
 
         <Form.Item<FieldType>
-            label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: USER_PASSWORD }]}
         >
-            <Input.Password />
+            <Input.Password prefix={<KeyOutlined />} />
         </Form.Item>
 
-        <Form.Item<FieldType>
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
-        >
-            <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-                Submit
+        <Form.Item wrapperCol={{ offset: 0, span: 24 }} >
+            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                注册
             </Button>
         </Form.Item>
     </Form>
