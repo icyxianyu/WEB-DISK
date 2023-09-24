@@ -1,20 +1,26 @@
 
+import { Layout } from 'antd';
 import styled from 'styled-components';
+import HeaderContainer from '../gobalHeader/header';
+import SliderContainer from '../globalHider/sider';
 
-const LayoutContainer = styled.div`
+const { Content } = Layout;
+
+const LayoutContainer = styled(Layout)`
     width: 100vw;
     height: 100vh;
-
 `;
 
-
-export default function Layout({ children }: any) {
+export default function Layouts({ children }: any) {
 
     return (
         <LayoutContainer>
-            {children}
-        </LayoutContainer>
-
+            <HeaderContainer />
+            <Layout hasSider>
+                <SliderContainer />
+                <Content >{children}</Content>
+            </Layout>
+        </LayoutContainer >
     )
 
 }

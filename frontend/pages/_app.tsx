@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components"
-import Layout from '@/components/layout/layout';
 import { ConfigProvider } from "antd";
+import Layouts from "@/components/layout/layout";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -10,27 +10,37 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-
-
 function MyApp({ Component, pageProps }: any) {
     return (
         <>
             <GlobalStyle />
-            <Layout>
-                <ConfigProvider
-                    theme={{
-                        components: {
-                            Layout: {
-                                headerBg: '#fff',
-                                siderBg: '#fff',
-                            },
+            <ConfigProvider
+                theme={{
+                    components: {
+                        Layout: {
+                            headerBg: '#fff',
+                            siderBg: '#fff',
                         },
-                    }}
-                >
+                    },
+                }}
+            >
+                <Layouts>
                     <Component {...pageProps} />
-                </ConfigProvider>
-            </Layout>
+                </Layouts>
+            </ConfigProvider>
         </>
     )
 }
 export default MyApp
+
+{/* <Container>
+<StyledHeader>
+    <HeaderContainer />
+</StyledHeader>
+<Layout hasSider>
+    <StyledSlider >
+        <SliderContainer />
+    </StyledSlider>
+    <Content >Content</Content>
+</Layout>
+</Container> */}
