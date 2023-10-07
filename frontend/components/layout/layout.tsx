@@ -2,7 +2,7 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import HeaderContainer from '../gobalHeader/header';
-import SliderContainer from '../globalHider/sider';
+import SliderContainer from '../globalSider/sider';
 
 const { Content } = Layout;
 
