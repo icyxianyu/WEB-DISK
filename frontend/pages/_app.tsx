@@ -32,15 +32,3 @@ function MyApp({ Component, pageProps }: any) {
     )
 }
 export default MyApp
-
-{/* <Container>
-<StyledHeader>
-    <HeaderContainer />
-</StyledHeader>
-<Layout hasSider>
-    <StyledSlider >
-        <SliderContainer />
-    </StyledSlider>
-    <Content >Content</Content>
-</Layout>
-</Container> */}
