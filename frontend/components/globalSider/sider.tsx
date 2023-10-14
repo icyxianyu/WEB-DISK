@@ -17,6 +17,9 @@ const StyledSlider = styled(Sider)`
         margin: 30px 0;
 
     }
+    & .ant-tabs-content-holder{
+        display:none;
+    }
 `;
 
 const pathMap: Record<string, string>

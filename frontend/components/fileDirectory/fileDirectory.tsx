@@ -1,41 +1,11 @@
 
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Breadcrumb } from 'antd';
 import { useState } from 'react';
 import styled from 'styled-components';
+import TableComponent from './table';
+import Toolbar from './toolbar';
 
-interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-}
-
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-    },
-];
-
-const data: DataType[] = [];
-for (let i = 0; i < 46; i++) {
-    data.push({
-        key: i,
-        name: `Edward King ${i}`,
-        age: 32,
-        address: `London, Park Lane no. ${i}`,
-    });
-}
 const breadcrumbItems =
     [
         {
@@ -55,46 +25,25 @@ const breadcrumbItems =
     ];
 
 const StyleContainer = styled.div`
-    padding: 24px;
+    padding: 24px 0 0 24px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 `;
 
 const FileDirectory: React.FC = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [loading, setLoading] = useState(false);
 
-    const start = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setSelectedRowKeys([]);
-            setLoading(false);
-        }, 1000);
-    };
-
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
-
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
-    const hasSelected = selectedRowKeys.length > 0;
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     return (
         <StyleContainer>
-            <div style={{ marginBottom: 16 }}>
-                <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                    Reload
-                </Button>
-                <span style={{ marginLeft: 8 }}>
-                    {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
-                </span>
-            </div>
-            <Breadcrumb
-                items={breadcrumbItems}
-            />
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Toolbar
+                selectedRowKeys={selectedRowKeys} />
+            <Breadcrumb items={breadcrumbItems} />
+            <TableComponent
+                selectedRowKeys={selectedRowKeys}
+                setSelectedRowKeys={setSelectedRowKeys} />
         </StyleContainer>
     );
 };

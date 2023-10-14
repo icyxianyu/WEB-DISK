@@ -11,7 +11,7 @@ const StyledHeader = styled(Header)`
     z-index:2;
     display: flex;
     justify-content: flex-end;
-    `;
+`;
 
 export default function HeaderContainer() {
     const router = useRouter()
@@ -22,7 +22,7 @@ export default function HeaderContainer() {
 
     return (
         <StyledHeader>
-            <Space>
+            <Space style={{ cursor: "pointer" }}>
                 <Upload />
                 <AvatarContent />
             </Space>
