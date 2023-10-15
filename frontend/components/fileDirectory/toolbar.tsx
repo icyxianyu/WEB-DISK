@@ -15,7 +15,6 @@ interface Props {
 }
 
 export default function Toolbar({ selectedRowKeys }: Props) {
-    console.log(selectedRowKeys)
     return (
 
         <StyleContainer>

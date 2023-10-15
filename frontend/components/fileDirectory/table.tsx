@@ -1,8 +1,11 @@
+'use client'
 import type { ColumnsType } from 'antd/es/table';
 import { Empty, Skeleton, Space, Table } from 'antd';
 import styled from 'styled-components';
 import IconType from './iconType';
 import { useEffect, useState } from 'react';
+import { useSwitch } from '@/hooks/useSwitch';
+import { useRouter } from 'next/router';
 
 interface DataType {
     key: React.Key;
@@ -10,6 +13,10 @@ interface DataType {
     name: React.ReactNode;
     time: string;
     size: string;
+}
+interface Props {
+    selectedRowKeys: React.Key[];
+    setSelectedRowKeys: Function;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -35,7 +42,6 @@ const columns: ColumnsType<DataType> = [
     },
 ];
 
-
 const StyleContainer = styled.div`
     margin-top: 16px;
     cursor: pointer;
@@ -45,17 +51,15 @@ const StyleContainer = styled.div`
     display:flex;
 `;
 
-interface Props {
-    selectedRowKeys: React.Key[];
-    setSelectedRowKeys: Function;
-}
-
 export default function TableComponent({ selectedRowKeys, setSelectedRowKeys }: Props) {
     const [data, setData] = useState<DataType[]>([]);
-    const [load, setloading] = useState<boolean>(true);
+    const [load, , close, open] = useSwitch(true);
+    const router = useRouter();
+
+    const { pathname, query } = router;
+    const { path, sort } = query;
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
@@ -65,6 +69,8 @@ export default function TableComponent({ selectedRowKeys, setSelectedRowKeys }: 
     };
 
     useEffect(() => {
+        open();
+        console.log("path", path)
         setTimeout(() => {
             const temp = []
             for (let i = 0; i < 46; i++) {
@@ -77,20 +83,26 @@ export default function TableComponent({ selectedRowKeys, setSelectedRowKeys }: 
                 });
             }
             setData(temp);
-            setloading(false);
+            close();
+
         }, 1000)
-    }, [])
+    }, [path])
 
     const onClickHandle = (record: DataType) => {
-
+        // 修改 query
+        const { key, type } = record;
+        router.push({
+            pathname,
+            query: {
+                path: key,
+                sort: sort
+            }
+        })
     }
 
     return (
         <StyleContainer>
-
-            <Skeleton active
-                loading={load}
-            >
+            <Skeleton active loading={load}>
                 {
                     data.length ? <Table
                         rowSelection={rowSelection}
@@ -103,10 +115,9 @@ export default function TableComponent({ selectedRowKeys, setSelectedRowKeys }: 
                                 onClick: () => { onClickHandle(record) }, // 点击行
                             };
                         }}
-                    /> : <Empty style={{ margin: 'auto' }} />
+                    /> : <Empty style={{ margin: "auto" }} />
                 }
             </Skeleton>
-
         </StyleContainer>
     )
 }

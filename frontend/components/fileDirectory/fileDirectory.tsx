@@ -1,6 +1,7 @@
 
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Space } from 'antd';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 import TableComponent from './table';
@@ -33,14 +34,20 @@ const StyleContainer = styled.div`
 `;
 
 const FileDirectory: React.FC = () => {
-
+    const router = useRouter();
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const { sort } = router.query;
 
     return (
         <StyleContainer>
-            <Toolbar
-                selectedRowKeys={selectedRowKeys} />
-            <Breadcrumb items={breadcrumbItems} />
+            {
+                sort === "all" ?
+                    <Space direction='vertical'>
+                        <Toolbar
+                            selectedRowKeys={selectedRowKeys} />
+                        <Breadcrumb items={breadcrumbItems} />
+                    </Space> : null
+            }
             <TableComponent
                 selectedRowKeys={selectedRowKeys}
                 setSelectedRowKeys={setSelectedRowKeys} />
